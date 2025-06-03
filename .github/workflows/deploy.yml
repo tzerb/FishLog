@@ -14,11 +14,25 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
+    - name: Azure CLI script
+      uses: azure/cli@v2
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az account show
+          
     - name: Login to Azure
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    - name: Azure CLI script
+      uses: azure/cli@v2
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az account show
+          
     - name: Create Resource Group (if needed)
       run: |
         az group create --name ${{ secrets.AZURE_RG_NAME }} --location ${{ secrets.AZURE_LOCATION }}
